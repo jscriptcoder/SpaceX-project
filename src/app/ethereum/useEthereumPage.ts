@@ -4,7 +4,7 @@ import {
   ETHEREUM_DEPOSIT_CONTRACT_ADDRESS,
   FROM_BLOCK,
 } from '@/constants'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Address, Hash, Hex, parseAbiItem } from 'viem'
 import { useNetwork } from 'wagmi'
 
@@ -45,16 +45,14 @@ export default function useWatchDepositeEvent() {
       onLogs: (newLogs) => {
         console.log('New logs:', newLogs)
 
-        // WARNING: mutation!!
-        logs.unshift(...newLogs)
-        setLogs(logs)
+        // Add the new logs to the beginning of the array
+        setLogs((prevLogs) => [...newLogs, ...prevLogs])
       },
       address: ETHEREUM_DEPOSIT_CONTRACT_ADDRESS,
       event: parseAbiItem(DEPOSITE_EVENT_ABI),
     })
 
     return unwatch
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain])
 
   return { logs, chain }

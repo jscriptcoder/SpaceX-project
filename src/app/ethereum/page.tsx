@@ -5,6 +5,7 @@ import useEthereumPage from './useEthereumPage'
 import { truncateString } from '@/utils/truncateString'
 import { hexLittleEndianToDecimal } from '@/utils/hexLittleEndianToDecimal'
 import Connected from '@/components/Connected'
+import Paginator from './Paginator'
 
 export default function EthereumPage() {
   const { logs, chain } = useEthereumPage()
@@ -61,6 +62,9 @@ export default function EthereumPage() {
               })}
             </tbody>
           </table>
+        </div>
+        <div className="flex justify-end mt-4">
+          <Paginator totalItems={logs.length} />
         </div>
       </Connected>
     </Page>
