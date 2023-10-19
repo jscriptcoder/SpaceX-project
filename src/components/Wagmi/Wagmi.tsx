@@ -15,6 +15,7 @@ const metadata = {
   name: 'SpaceX',
   description: 'Cool project',
   url: 'https://space-x-project-seven.vercel.app',
+  icons: ['https://space-x-project-seven.vercel.app/logo.png'],
 }
 
 const chains = supportedChains
