@@ -5,11 +5,23 @@ import {
   FROM_BLOCK,
 } from '@/constants'
 import { useEffect, useState } from 'react'
-import { GetFilterLogsReturnType, parseAbiItem } from 'viem'
+import { Address, Hash, Hex, parseAbiItem } from 'viem'
 import { useNetwork } from 'wagmi'
 
+type Log = {
+  address: Address
+  blockHash: Hash
+  blockNumber: bigint
+  logIndex: number
+  transactionHash: Hash
+  transactionIndex: number
+  args: {
+    amount?: Hex
+  }
+}
+
 export default function useWatchDepositeEvent() {
-  const [logs, setLogs] = useState<GetFilterLogsReturnType>([])
+  const [logs, setLogs] = useState<Log[]>([])
   const { chain } = useNetwork()
 
   useEffect(() => {
@@ -42,6 +54,7 @@ export default function useWatchDepositeEvent() {
     })
 
     return unwatch
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain])
 
   return { logs, chain }
