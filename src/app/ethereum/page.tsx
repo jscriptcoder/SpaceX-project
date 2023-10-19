@@ -16,9 +16,9 @@ export default function EthereumPage() {
           <table className="table table-lg table-pin-rows">
             <thead>
               <tr>
-                <th>Tx Hash</th>
+                <th>Transaction Hash</th>
                 <th align="center">Block</th>
-                <th align="center">Log Idx</th>
+                <th align="center">Log Index</th>
                 <th align="right">Amount</th>
               </tr>
             </thead>
