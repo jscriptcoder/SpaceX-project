@@ -11,16 +11,18 @@ export const metadata: Metadata = {
   description: 'Toy project',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body>
         <div className="flex flex-col justify-between h-full bg-[url('/ethereum-bg.png')] bg-cover">
           <Wagmi>
             <Header />
-            <main className='flex-1'>
-              {children}
-            </main>
+            <main className="flex-1">{children}</main>
             <Footer />
           </Wagmi>
         </div>
