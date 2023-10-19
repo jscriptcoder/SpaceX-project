@@ -18,6 +18,7 @@ export default function EthereumPage() {
               <tr>
                 <th>Tx Hash</th>
                 <th align="center">Block</th>
+                <th align="center">Log Idx</th>
                 <th align="right">Amount</th>
               </tr>
             </thead>
@@ -53,6 +54,7 @@ export default function EthereumPage() {
                         {blockNumber}
                       </a>
                     </td>
+                    <td align="center">{log.logIndex}</td>
                     <td align="right">{amount}</td>
                   </tr>
                 )
