@@ -6,20 +6,9 @@ import {
   defaultPageSize,
 } from '@/constants/config'
 import { useEffect, useMemo, useState } from 'react'
-import { Address, Hash, Hex, parseAbiItem } from 'viem'
+import { parseAbiItem } from 'viem'
 import { useNetwork } from 'wagmi'
-
-type Log = {
-  address: Address
-  blockHash: Hash
-  blockNumber: bigint
-  logIndex: number
-  transactionHash: Hash
-  transactionIndex: number
-  args: {
-    amount?: Hex
-  }
-}
+import { Log } from './types'
 
 export default function useDepositsPage() {
   const [page, setPage] = useState(1)
@@ -78,7 +67,6 @@ export default function useDepositsPage() {
     logs: logsToDisplay,
     totalLogs: logs.length,
     page,
-    chain,
     setPage,
   }
 }

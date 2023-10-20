@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
+import useLogsPaginator from './useLogsPaginator'
 
-type PaginatorProps = {
+type LogsPaginatorProps = {
   page: number
   totalItems: number
   pageSize?: number
@@ -8,37 +9,19 @@ type PaginatorProps = {
   pageChange?: (page: number) => void
 }
 
-export default function Paginator({
+export default function LogsPaginator({
   page,
   totalItems,
   pageSize = 5,
   buttonsToShow = 5,
   pageChange = () => {},
-}: PaginatorProps) {
-  const totalPages = useMemo(
-    () => Math.ceil(totalItems / pageSize),
-    [totalItems, pageSize]
-  )
-  const buttons = useMemo(
-    () => Math.min(buttonsToShow, totalPages),
-    [buttonsToShow, totalPages]
-  )
-
-  const startPage = useMemo(
-    () => Math.max(1, page - Math.floor(buttons / 2)),
-    [page, buttons]
-  )
-
-  const endPage = useMemo(
-    () => Math.min(totalPages, startPage + buttons - 1),
-    [totalPages, startPage, buttons]
-  )
-
-  const pages = useMemo(() => {
-    return Array.from({ length: endPage - startPage + 1 }, (_, i) => {
-      return startPage + i
-    })
-  }, [startPage, endPage])
+}: LogsPaginatorProps) {
+  const { pages, totalPages } = useLogsPaginator({
+    page,
+    pageSize,
+    totalItems,
+    buttonsToShow,
+  })
 
   return (
     <div className="join">
