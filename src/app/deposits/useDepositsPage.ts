@@ -13,6 +13,7 @@ import { Log } from './types'
 export default function useDepositsPage() {
   const [page, setPage] = useState(1)
   const [logs, setLogs] = useState<Log[]>([])
+  const [loading, setLoading] = useState(false)
   const { chain } = useNetwork()
 
   const logsToDisplay = useMemo(() => {
@@ -23,6 +24,8 @@ export default function useDepositsPage() {
 
   useEffect(() => {
     const websocketClient = getWebsocketClient(chain)
+
+    setLoading(true)
 
     // Let's get the latest logs for the event DepositEvent
     websocketClient
@@ -47,6 +50,7 @@ export default function useDepositsPage() {
         console.log('Previous logs:', sorted)
         setLogs(sorted)
       })
+      .finally(() => setLoading(false))
 
     // Start watching for new logs
     const unwatch = websocketClient.watchEvent({
@@ -67,6 +71,7 @@ export default function useDepositsPage() {
     logs: logsToDisplay,
     totalLogs: logs.length,
     page,
+    loading,
     setPage,
   }
 }

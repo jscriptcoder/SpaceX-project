@@ -2,12 +2,14 @@ import { hexLittleEndianToDecimal } from '@/utils/hexLittleEndianToDecimal'
 import { truncateString } from '@/utils/truncateString'
 import { Address, useNetwork } from 'wagmi'
 import { Log } from './types'
+import LoadingLogs from './LoadingLogs'
 
 type DepositsTableProps = {
   logs: Log[]
+  loading: boolean
 }
 
-export default function DepositsTable({ logs }: DepositsTableProps) {
+export default function DepositsTable({ logs, loading }: DepositsTableProps) {
   const { chain } = useNetwork()
 
   return (
@@ -21,43 +23,51 @@ export default function DepositsTable({ logs }: DepositsTableProps) {
         </tr>
       </thead>
 
-      <tbody>
-        {logs.map((log) => {
-          const key = `${log.blockHash}-${log.transactionHash}-${log.logIndex}`
-          const explorerUrl = chain?.blockExplorers?.default.url
-          const txHash = truncateString(log.transactionHash, 20)
-          const txUrl = `${explorerUrl}/tx/${log.transactionHash}`
-          const blockNumber = log.blockNumber.toString()
-          const blockUrl = `${explorerUrl}/block/${blockNumber}`
+      {loading && <LoadingLogs rows={8} />}
 
-          // TODO: explain this
-          const amountInGwei = log?.args?.amount
-            ? hexLittleEndianToDecimal(log.args.amount)
-            : BigInt(0)
-          const amount = `${amountInGwei / BigInt(10 ** 9)} ETH` // 1 ETH = 10^9 Gwei
+      {!loading && (
+        <tbody>
+          {logs.map((log) => {
+            const key = `${log.blockHash}-${log.transactionHash}-${log.logIndex}`
+            const explorerUrl = chain?.blockExplorers?.default.url
+            const txHash = truncateString(log.transactionHash, 20)
+            const txUrl = `${explorerUrl}/tx/${log.transactionHash}`
+            const blockNumber = log.blockNumber.toString()
+            const blockUrl = `${explorerUrl}/block/${blockNumber}`
 
-          return (
-            <tr key={key}>
-              <td>
-                <a className="link link-secondary" href={txUrl} target="_blank">
-                  {txHash}
-                </a>
-              </td>
-              <td align="center">
-                <a
-                  className="link link-secondary"
-                  href={blockUrl}
-                  target="_blank"
-                >
-                  {blockNumber}
-                </a>
-              </td>
-              <td align="center">{log.logIndex}</td>
-              <td align="right">{amount}</td>
-            </tr>
-          )
-        })}
-      </tbody>
+            // TODO: explain this
+            const amountInGwei = log?.args?.amount
+              ? hexLittleEndianToDecimal(log.args.amount)
+              : BigInt(0)
+            const amount = `${amountInGwei / BigInt(10 ** 9)} ETH` // 1 ETH = 10^9 Gwei
+
+            return (
+              <tr key={key}>
+                <td>
+                  <a
+                    className="link link-secondary"
+                    href={txUrl}
+                    target="_blank"
+                  >
+                    {txHash}
+                  </a>
+                </td>
+                <td align="center">
+                  <a
+                    className="link link-secondary"
+                    href={blockUrl}
+                    target="_blank"
+                  >
+                    {blockNumber}
+                  </a>
+                </td>
+                <td align="center">{log.logIndex}</td>
+                <td align="right">{amount}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      )}
     </table>
   )
 }
