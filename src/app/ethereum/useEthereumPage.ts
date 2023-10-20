@@ -5,7 +5,7 @@ import {
   FROM_BLOCK,
   PAGE_SIZE,
 } from '@/constants'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Address, Hash, Hex, parseAbiItem } from 'viem'
 import { useNetwork } from 'wagmi'
 
@@ -44,17 +44,28 @@ export default function useEthereumPage() {
       })
       .then((filter) => websocketClient.getFilterLogs({ filter }))
       .then((prevLogs) => {
-        console.log('Previous logs:', prevLogs)
-        setLogs(prevLogs)
+        // Sort the logs by block number and logIndex in descending order
+        const sorted = prevLogs.sort((log1, log2) => {
+          // We sort by block number first
+          if (log1.blockNumber !== log2.blockNumber) {
+            return Number(log2.blockNumber - log1.blockNumber)
+          }
+
+          // If the block numbers are the same, we sort by logIndex
+          return log2.logIndex - log1.logIndex
+        })
+
+        console.log('Previous logs:', sorted)
+        setLogs(sorted)
       })
 
     // Start watching for new logs
     const unwatch = websocketClient.watchEvent({
       onLogs: (newLogs) => {
-        console.log('New logs:', newLogs)
+        console.log('New log:', newLogs[0])
 
-        // Add the new logs to the beginning of the array
-        setLogs((prevLogs) => [...newLogs, ...prevLogs])
+        // Add the new log to the beginning of the array
+        setLogs((prevLogs) => [newLogs[0], ...prevLogs])
       },
       address: ETHEREUM_DEPOSIT_CONTRACT_ADDRESS,
       event: parseAbiItem(DEPOSITE_EVENT_ABI),

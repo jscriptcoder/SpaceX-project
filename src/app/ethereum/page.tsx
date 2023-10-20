@@ -33,8 +33,10 @@ export default function EthereumPage() {
                 const txUrl = `${explorerUrl}/tx/${log.transactionHash}`
                 const blockNumber = log.blockNumber.toString()
                 const blockUrl = `${explorerUrl}/block/${blockNumber}`
+
+                // TODO: explain this
                 const amountInGwei = hexLittleEndianToDecimal(log.args.amount)
-                const amount = `${amountInGwei / BigInt(10 ** 9)} ETH`
+                const amount = `${amountInGwei / BigInt(10 ** 9)} ETH` // 1 ETH = 10^9 Gwei
 
                 return (
                   <tr key={key}>
