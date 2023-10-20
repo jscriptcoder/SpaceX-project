@@ -21,7 +21,7 @@ type Log = {
   }
 }
 
-export default function useEthereumPage() {
+export default function useDepositsPage() {
   const [page, setPage] = useState(1)
   const [logs, setLogs] = useState<Log[]>([])
   const { chain } = useNetwork()

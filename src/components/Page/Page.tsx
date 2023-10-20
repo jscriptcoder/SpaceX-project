@@ -3,5 +3,5 @@ type PageProps = {
 }
 
 export default function Page({ children }: PageProps) {
-  return <div className="p-4">{children}</div>
+  return <div className="p-8">{children}</div>
 }

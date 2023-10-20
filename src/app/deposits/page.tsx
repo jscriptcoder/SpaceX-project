@@ -1,15 +1,15 @@
 'use client'
 
 import Page from '@/components/Page'
-import useEthereumPage from './useEthereumPage'
+import useDepositsPage from './useDepositsPage'
 import { truncateString } from '@/utils/truncateString'
 import { hexLittleEndianToDecimal } from '@/utils/hexLittleEndianToDecimal'
 import Connected from '@/components/Connected'
 import Paginator from './Paginator'
 import { PAGE_SIZE } from '@/constants'
 
-export default function EthereumPage() {
-  const { logs, totalLogs, chain, page, setPage } = useEthereumPage()
+export default function DepositsPage() {
+  const { logs, totalLogs, chain, page, setPage } = useDepositsPage()
 
   return (
     <Page>
