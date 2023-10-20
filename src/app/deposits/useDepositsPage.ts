@@ -1,10 +1,10 @@
 import { getWebsocketClient } from '@/clients/websocketClient'
 import {
-  DEPOSITE_EVENT_ABI,
-  ETHEREUM_DEPOSIT_CONTRACT_ADDRESS,
-  FROM_BLOCK,
-  PAGE_SIZE,
-} from '@/constants'
+  depositEventABI,
+  depositContractAddress,
+  initialBlock,
+  defaultPageSize,
+} from '@/constants/config'
 import { useEffect, useMemo, useState } from 'react'
 import { Address, Hash, Hex, parseAbiItem } from 'viem'
 import { useNetwork } from 'wagmi'
@@ -27,8 +27,8 @@ export default function useDepositsPage() {
   const { chain } = useNetwork()
 
   const logsToDisplay = useMemo(() => {
-    const start = (page - 1) * PAGE_SIZE
-    const end = start + PAGE_SIZE
+    const start = (page - 1) * defaultPageSize
+    const end = start + defaultPageSize
     return logs.slice(start, end)
   }, [page, logs])
 
@@ -38,9 +38,9 @@ export default function useDepositsPage() {
     // Let's get the latest logs for the event DepositEvent
     websocketClient
       .createEventFilter({
-        address: ETHEREUM_DEPOSIT_CONTRACT_ADDRESS,
-        event: parseAbiItem(DEPOSITE_EVENT_ABI),
-        fromBlock: FROM_BLOCK,
+        address: depositContractAddress,
+        event: parseAbiItem(depositEventABI),
+        fromBlock: initialBlock,
       })
       .then((filter) => websocketClient.getFilterLogs({ filter }))
       .then((prevLogs) => {
@@ -67,8 +67,8 @@ export default function useDepositsPage() {
         // Add the new log to the beginning of the array
         setLogs((prevLogs) => [newLogs[0], ...prevLogs])
       },
-      address: ETHEREUM_DEPOSIT_CONTRACT_ADDRESS,
-      event: parseAbiItem(DEPOSITE_EVENT_ABI),
+      address: depositContractAddress,
+      event: parseAbiItem(depositEventABI),
     })
 
     return unwatch

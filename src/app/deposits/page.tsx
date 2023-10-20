@@ -6,7 +6,7 @@ import { truncateString } from '@/utils/truncateString'
 import { hexLittleEndianToDecimal } from '@/utils/hexLittleEndianToDecimal'
 import Connected from '@/components/Connected'
 import Paginator from './Paginator'
-import { PAGE_SIZE } from '@/constants'
+import { defaultPageSize } from '@/constants/config'
 
 export default function DepositsPage() {
   const { logs, totalLogs, chain, page, setPage } = useDepositsPage()
@@ -70,7 +70,7 @@ export default function DepositsPage() {
           <Paginator
             page={page}
             totalItems={totalLogs}
-            pageSize={PAGE_SIZE}
+            pageSize={defaultPageSize}
             pageChange={setPage}
           />
         </div>
