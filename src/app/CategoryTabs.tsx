@@ -1,19 +1,13 @@
 import { SearchCategory, SearchResultValue } from '@/constants/types'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 type TabsProps = {
-  selected: SearchCategory
-  categories: SearchCategory[]
+  loading: boolean
   resultValues: SearchResultValue[]
-  onSelect: (category: SearchCategory) => void
 }
 
-export default function CategoryTabs({
-  selected,
-  categories,
-  resultValues,
-  onSelect,
-}: TabsProps) {
+export default function CategoryTabs({ loading, resultValues }: TabsProps) {
+  const [tab, setTab] = useState(SearchCategory.ALL)
   const totalItems = useMemo(
     () => resultValues.reduce((acc, val) => acc + (val?.data?.count || 0), 0),
     [resultValues]
@@ -21,23 +15,24 @@ export default function CategoryTabs({
 
   return (
     <div className="tabs">
-      {categories.map((cat) => {
+      {Object.values(SearchCategory).map((category) => {
         const count =
-          cat === SearchCategory.ALL
+          category === SearchCategory.ALL
             ? totalItems
-            : resultValues.find((val) => val.category === cat)?.data?.count || 0
+            : resultValues.find((val) => val.category === category)?.data
+                ?.count || 0
         return (
-          <div key={cat} className="indicator">
+          <div key={category} className="indicator">
             <span className="indicator-item badge badge-primary text-[10px]">
               {count}
             </span>
             <button
               className={`tab tab-lg tab-bordered capitalize ${
-                selected === cat ? 'tab-active' : ''
+                tab === category ? 'tab-active' : ''
               }`}
-              onClick={() => onSelect(cat)}
+              onClick={() => setTab(category)}
             >
-              {cat}
+              {category}
             </button>
           </div>
         )

@@ -7,8 +7,6 @@ export default function useHomePage() {
   const [category, setCategory] = useState<SearchCategory>(SearchCategory.ALL)
   const [resultValues, setResultValues] = useState<SearchResultValue[]>([])
 
-  const categories = useMemo(() => Object.values(SearchCategory), [])
-
   useEffect(() => {
     setLoading(true)
     fetch(`/api/starwar?search=${search}&category=${category}`)
@@ -26,7 +24,6 @@ export default function useHomePage() {
   return {
     loading,
     category,
-    categories,
     resultValues,
     setSearch,
     setCategory,
