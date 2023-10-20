@@ -14,7 +14,7 @@ export default function DepositsPage() {
   return (
     <Page>
       <Connected>
-        <div className="glass-box overflow-x-auto h-[500px]">
+        <div className="glass-box overflow-x-auto h-[400px]">
           <table className="table table-lg table-pin-rows">
             <thead>
               <tr>
