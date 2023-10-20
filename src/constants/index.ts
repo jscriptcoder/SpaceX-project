@@ -7,3 +7,5 @@ export const DEPOSITE_EVENT_ABI =
   'event DepositEvent(bytes pubkey, bytes withdrawal_credentials, bytes amount, bytes signature, bytes index)'
 
 export const FROM_BLOCK = BigInt(18383719) // 2023-10-19 10:15:47
+
+export const PAGE_SIZE = 15

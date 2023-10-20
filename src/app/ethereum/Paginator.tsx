@@ -1,18 +1,20 @@
 import { useCallback, useMemo, useState } from 'react'
 
 type PaginatorProps = {
+  page: number
   totalItems: number
   pageSize?: number
   buttonsToShow?: number
+  pageChange?: (page: number) => void
 }
 
 export default function Paginator({
+  page,
   totalItems,
   pageSize = 5,
   buttonsToShow = 5,
+  pageChange = () => {},
 }: PaginatorProps) {
-  const [currentPage, setCurrentPage] = useState(1)
-
   const totalPages = useMemo(
     () => Math.ceil(totalItems / pageSize),
     [totalItems, pageSize]
@@ -23,8 +25,8 @@ export default function Paginator({
   )
 
   const startPage = useMemo(
-    () => Math.max(1, currentPage - Math.floor(buttons / 2)),
-    [currentPage, buttons]
+    () => Math.max(1, page - Math.floor(buttons / 2)),
+    [page, buttons]
   )
 
   const endPage = useMemo(
@@ -40,35 +42,42 @@ export default function Paginator({
 
   return (
     <div className="join">
-      <button className="join-item btn" onClick={() => setCurrentPage(1)}>
+      <button
+        className="join-item btn"
+        onClick={() => pageChange(1)}
+        disabled={page === 1}
+      >
         First
       </button>
       <button
         className="join-item btn"
-        onClick={() => setCurrentPage(currentPage - 1)}
+        onClick={() => pageChange(page - 1)}
+        disabled={page === 1}
       >
         Previous
       </button>
-      {pages.map((page) => (
+      {pages.map((p) => (
         <button
-          key={page}
+          key={p}
           className={`join-item btn ${
-            page === currentPage ? 'btn-active' : ''
+            p === page ? 'btn-primary btn-active' : ''
           }`}
-          onClick={() => setCurrentPage(page)}
+          onClick={() => pageChange(p)}
         >
-          {page}
+          {p}
         </button>
       ))}
       <button
         className="join-item btn"
-        onClick={() => setCurrentPage(currentPage + 1)}
+        onClick={() => pageChange(page + 1)}
+        disabled={page === totalPages}
       >
         Next
       </button>
       <button
         className="join-item btn"
-        onClick={() => setCurrentPage(totalPages)}
+        onClick={() => pageChange(totalPages)}
+        disabled={page === totalPages}
       >
         Last
       </button>

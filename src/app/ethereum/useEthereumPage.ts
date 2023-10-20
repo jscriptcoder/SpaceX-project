@@ -3,8 +3,9 @@ import {
   DEPOSITE_EVENT_ABI,
   ETHEREUM_DEPOSIT_CONTRACT_ADDRESS,
   FROM_BLOCK,
+  PAGE_SIZE,
 } from '@/constants'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Address, Hash, Hex, parseAbiItem } from 'viem'
 import { useNetwork } from 'wagmi'
 
@@ -20,9 +21,16 @@ type Log = {
   }
 }
 
-export default function useWatchDepositeEvent() {
+export default function useEthereumPage() {
+  const [page, setPage] = useState(1)
   const [logs, setLogs] = useState<Log[]>([])
   const { chain } = useNetwork()
+
+  const logsToDisplay = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE
+    const end = start + PAGE_SIZE
+    return logs.slice(start, end)
+  }, [page, logs])
 
   useEffect(() => {
     const websocketClient = getWebsocketClient(chain)
@@ -55,5 +63,11 @@ export default function useWatchDepositeEvent() {
     return unwatch
   }, [chain])
 
-  return { logs, chain }
+  return {
+    logs: logsToDisplay,
+    totalLogs: logs.length,
+    page,
+    chain,
+    setPage,
+  }
 }
