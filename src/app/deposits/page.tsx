@@ -14,7 +14,7 @@ export default function DepositsPage() {
     <Page>
       <Connected>
         <div className="glass-box overflow-x-auto h-[400px]">
-          <DepositsTable logs={logs} loading={true} />
+          <DepositsTable logs={logs} loading={loading} />
         </div>
         <div className="flex justify-end mt-4">
           {!loading && (
