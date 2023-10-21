@@ -2,19 +2,19 @@ import { SearchCategory, categories } from '@/constants/category'
 import { SearchResultValue } from '@/constants/types'
 import LoadingTabs from './LoadingTabs'
 
-type CategoryTabsProps = {
+type EntityTabsProps = {
   tab: SearchCategory
   loading: boolean
   results: SearchResultValue[]
   onChange?: (category: SearchCategory) => void
 }
 
-export default function CategoryTabs({
+export default function EntityTabs({
   tab,
   loading,
   results = [],
   onChange = () => {},
-}: CategoryTabsProps) {
+}: EntityTabsProps) {
   if (loading) return <LoadingTabs tabs={categories.length} />
 
   return (

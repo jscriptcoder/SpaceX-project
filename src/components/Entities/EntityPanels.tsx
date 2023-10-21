@@ -14,17 +14,17 @@ import StarshipsTable from './StarshipsTable'
 import VehiclesTable from './VehiclesTable'
 import LoadingTable from './LoadingTable'
 
-type CategoryPanelsProps = {
+type EntityPanelsProps = {
   tab: SearchCategory
   loading: boolean
   results: SearchResultValue[]
 }
 
-export default function CategoryPanels({
+export default function EntityPanels({
   tab,
   loading,
   results = [],
-}: CategoryPanelsProps) {
+}: EntityPanelsProps) {
   if (loading) return <LoadingTable rows={11} />
 
   switch (tab) {
