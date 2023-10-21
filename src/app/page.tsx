@@ -12,13 +12,15 @@ export default function HomePage() {
     <Page>
       <div className="glass-box p-4 space-y-8">
         <Search onSearch={onSearch} />
-        <CategoryTabs
-          tab={tab}
-          loading={loading}
-          results={resultValues}
-          onChange={setTab}
-        />
-        <CategoryPanels tab={tab} loading={loading} results={resultValues} />
+        <div className="space-y-4">
+          <CategoryTabs
+            tab={tab}
+            loading={loading}
+            results={resultValues}
+            onChange={setTab}
+          />
+          <CategoryPanels tab={tab} loading={loading} results={resultValues} />
+        </div>
       </div>
     </Page>
   )

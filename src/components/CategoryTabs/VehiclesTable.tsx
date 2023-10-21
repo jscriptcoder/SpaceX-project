@@ -1,4 +1,5 @@
 import { SearchResultValue, Vehicle } from '@/constants/types'
+import EntityTable from './EntityTable'
 
 export default function VehiclesTable({
   result,
@@ -10,7 +11,7 @@ export default function VehiclesTable({
   const { data } = result
 
   return (
-    <div className="min-h-[300px] flex flex-col justify-between">
+    <EntityTable data={data}>
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -41,6 +42,6 @@ export default function VehiclesTable({
           ))}
         </tbody>
       </table>
-    </div>
+    </EntityTable>
   )
 }

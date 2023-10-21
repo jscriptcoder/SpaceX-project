@@ -17,11 +17,6 @@ export default function CategoryTabs({
 }: CategoryTabsProps) {
   if (loading) return <LoadingTabs tabs={categories.length} />
 
-  if (results.length === 0) {
-    // TODO
-    return <div>No results found</div>
-  }
-
   return (
     <div className="tabs">
       {results.map((result) => {

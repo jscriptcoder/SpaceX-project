@@ -1,4 +1,6 @@
 import { Planet, SearchResultValue } from '@/constants/types'
+import EntityTable from './EntityTable'
+import { useEffect, useState } from 'react'
 
 export default function PlanetsTable({
   result,
@@ -10,7 +12,7 @@ export default function PlanetsTable({
   const { data } = result
 
   return (
-    <div className="min-h-[300px] flex flex-col justify-between">
+    <EntityTable data={data}>
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -39,6 +41,6 @@ export default function PlanetsTable({
           ))}
         </tbody>
       </table>
-    </div>
+    </EntityTable>
   )
 }
