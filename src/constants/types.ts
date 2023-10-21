@@ -100,15 +100,15 @@ export interface Species extends Entity {
   skin_colors: string
 }
 
-export interface SearchResponse<T> {
+export interface SearchResponse<T = Entity> {
   count: number
   next: string | null
   previous: string | null
   results: T[]
 }
 
-export interface SearchResultValue {
+export interface SearchResultValue<T = Entity> {
   category: SearchCategory
   error?: string
-  data?: SearchResponse<Entity>
+  data?: SearchResponse<T>
 }

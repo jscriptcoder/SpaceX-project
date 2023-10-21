@@ -1,30 +1,30 @@
 import { SearchCategory, categories } from '@/constants/category'
 import { SearchResultValue } from '@/constants/types'
-import { useMemo, useState } from 'react'
 import LoadingTabs from './LoadingTabs'
 
-type TabsProps = {
+type CategoryTabsProps = {
+  tab: SearchCategory
   loading: boolean
-  resultValues: SearchResultValue[]
-  selected?: SearchCategory
+  results: SearchResultValue[]
+  onChange?: (category: SearchCategory) => void
 }
 
 export default function CategoryTabs({
+  tab,
   loading,
-  resultValues,
-  selected,
-}: TabsProps) {
-  const [tab, setTab] = useState<SearchCategory | undefined>(selected)
-  const totalItems = useMemo(
-    () => resultValues.reduce((acc, val) => acc + (val?.data?.count || 0), 0),
-    [resultValues]
-  )
-
+  results = [],
+  onChange = () => {},
+}: CategoryTabsProps) {
   if (loading) return <LoadingTabs tabs={categories.length} />
+
+  if (results.length === 0) {
+    // TODO
+    return <div>No results found</div>
+  }
 
   return (
     <div className="tabs">
-      {resultValues.map((result) => {
+      {results.map((result) => {
         const category = result.category
         const count = result.data?.count || 0
         return (
@@ -36,7 +36,7 @@ export default function CategoryTabs({
               className={`tab tab-lg tab-bordered capitalize ${
                 tab === category ? 'tab-active' : ''
               }`}
-              onClick={() => setTab(category)}
+              onClick={() => onChange(category)}
             >
               {category}
             </button>

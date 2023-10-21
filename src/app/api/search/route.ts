@@ -1,4 +1,4 @@
-import { SearchCategory } from '@/constants/category'
+import { SearchCategory, categories } from '@/constants/category'
 import { swapApiURL } from '@/constants/config'
 import { Entity, SearchResponse, SearchResultValue } from '@/constants/types'
 import { processResponse, replacePagination } from '@/utils/response'
@@ -6,27 +6,23 @@ import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const search = searchParams.get('search')
+  const term = searchParams.get('term')
   const category =
     (searchParams.get('category') as SearchCategory) || SearchCategory.ALL
 
   const categoriesToSearchIn: SearchCategory[] = []
 
   if (category === SearchCategory.ALL) {
-    categoriesToSearchIn.push(
-      ...Object.values(SearchCategory).filter(
-        (category) => category !== SearchCategory.ALL // remove the ALL category
-      )
-    )
+    categoriesToSearchIn.push(...categories)
   } else {
     categoriesToSearchIn.push(category)
   }
 
   let fetchPromises: Promise<Response>[]
-  if (search) {
+  if (term) {
     // There is a search term, so we search for it in all the categories
     fetchPromises = categoriesToSearchIn.map((category) =>
-      fetch(`${swapApiURL}/${category}/?search=${encodeURIComponent(search)}`)
+      fetch(`${swapApiURL}/${category}/?search=${encodeURIComponent(term)}`)
     )
   } else {
     // No search term, so we just fetch everything from the categories
