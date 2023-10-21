@@ -103,7 +103,7 @@ export interface Species extends Entity {
 export interface SearchResponse<T> {
   count: number
   next: string | null
-  previews: string | null
+  previous: string | null
   results: T[]
 }
 

@@ -6,10 +6,15 @@ import LoadingTabs from './LoadingTabs'
 type TabsProps = {
   loading: boolean
   resultValues: SearchResultValue[]
+  selected?: SearchCategory
 }
 
-export default function CategoryTabs({ loading, resultValues }: TabsProps) {
-  const [tab, setTab] = useState<SearchCategory | undefined>()
+export default function CategoryTabs({
+  loading,
+  resultValues,
+  selected,
+}: TabsProps) {
+  const [tab, setTab] = useState<SearchCategory | undefined>(selected)
   const totalItems = useMemo(
     () => resultValues.reduce((acc, val) => acc + (val?.data?.count || 0), 0),
     [resultValues]

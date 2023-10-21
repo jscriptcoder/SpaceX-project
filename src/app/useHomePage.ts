@@ -10,7 +10,7 @@ export default function useHomePage() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`/api/search?term=${search}&category=${category}`)
+    fetch(`/api/search?search=${search}&category=${category}`)
       .then((response) => response.json() as Promise<SearchResultValue[]>)
       .then((data) => setResultValues(data))
       .catch((err) => {
