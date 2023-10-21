@@ -1,4 +1,5 @@
-import { SearchCategory, SearchResultValue } from '@/constants/types'
+import { SearchCategory } from '@/constants/category'
+import { SearchResultValue } from '@/constants/types'
 import { useEffect, useMemo, useState } from 'react'
 
 export default function useHomePage() {
@@ -9,7 +10,7 @@ export default function useHomePage() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`/api/starwar?search=${search}&category=${category}`)
+    fetch(`/api/search?term=${search}&category=${category}`)
       .then((response) => response.json() as Promise<SearchResultValue[]>)
       .then((data) => setResultValues(data))
       .catch((err) => {

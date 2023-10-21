@@ -1,15 +1,11 @@
+import { SearchCategory } from '@/constants/category'
 import { swapApiURL } from '@/constants/config'
-import {
-  Entity,
-  SearchCategory,
-  SearchResponse,
-  SearchResultValue,
-} from '@/constants/types'
+import { Entity, SearchResponse, SearchResultValue } from '@/constants/types'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const search = searchParams.get('search')
+  const search = searchParams.get('term')
   const category =
     (searchParams.get('category') as SearchCategory) || SearchCategory.ALL
 

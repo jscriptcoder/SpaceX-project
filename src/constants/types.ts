@@ -1,22 +1,19 @@
-export enum SearchCategory {
-  ALL = 'all',
-  PEOPLE = 'people',
-  PLANETS = 'planets',
-  STARSHIPTS = 'starships',
-  VEHICLES = 'vehicles',
-}
+import { SearchCategory } from './category'
 
 export interface SearchQuery {
   search: string
   category: SearchCategory
 }
 
-export interface Film {
-  characters: string[]
+export interface Datable {
   created: Date
-  director: string
   edited: Date
-  episode_id: 4
+}
+
+export interface Film extends Datable {
+  characters: string[]
+  director: string
+  episode_id: number
   opening_crawl: string
   planets: string[]
   producer: string
@@ -28,13 +25,13 @@ export interface Film {
   vehicles: string[]
 }
 
-export interface Entity {
+export interface Entity extends Datable {
   name: string
   films: string[]
   url: string
 }
 
-export interface Character extends Entity {
+export interface People extends Entity {
   birth_year: string
   eye_color: string
   gender: 'Male' | 'Female' | 'unknown' | 'n/a'
@@ -43,8 +40,6 @@ export interface Character extends Entity {
   homeworld: string
   mass: number
   skin_color: string
-  created: Date
-  edited: Date
   species: string[]
   starships: string[]
   vehicles: string[]
@@ -52,9 +47,7 @@ export interface Character extends Entity {
 
 export interface Planet extends Entity {
   climate: string
-  created: Date
   diameter: number
-  edited: Date
   gravity: number
   orbital_period: number
   population: number
@@ -69,9 +62,7 @@ export interface Starship extends Entity {
   cargo_capacity: number
   consumables: string
   cost_in_credits: number
-  created: Date
   crew: number
-  edited: Date
   hyperdrive_rating: number
   length: number
   manufacturer: string
@@ -82,13 +73,11 @@ export interface Starship extends Entity {
   starship_class: string
 }
 
-export interface Vehicle {
+export interface Vehicle extends Entity {
   cargo_capacity: number
   consumables: string
   cost_in_credits: number
-  created: Date
   crew: number
-  edited: Date
   length: number
   manufacturer: string
   max_atmosphering_speed: number
@@ -96,6 +85,19 @@ export interface Vehicle {
   passengers: number
   pilots: []
   vehicle_class: 'wheeled' | 'Repulsorcraft'
+}
+
+export interface Species extends Entity {
+  average_height: number
+  average_lifespan: number
+  classification: 'mammal' | 'reptile' | 'artificial' | 'sentient' | 'gastropod'
+  designation: 'sentient' | 'reptile'
+  eye_colors: string
+  hair_colors: string
+  homeworld: string
+  language: string
+  people: string[]
+  skin_colors: string
 }
 
 export interface SearchResponse<T> {

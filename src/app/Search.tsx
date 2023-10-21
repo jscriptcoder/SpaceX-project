@@ -1,22 +1,18 @@
-import { SearchCategory } from '@/constants/types'
-import { useMemo } from 'react'
+import { searchCategories } from '@/constants/category'
 import { MdSearch } from 'react-icons/md'
 
 export default function Search() {
   return (
     <div className="join">
-      <input
-        className="input input-primary join-item w-[300px]"
-        placeholder="Search term…"
-      />
-      <select className="select select-primary join-item">
-        {Object.values(SearchCategory).map((category) => (
+      <input className="input join-item w-[300px]" placeholder="Search term…" />
+      <select className="select join-item">
+        {searchCategories.map((category) => (
           <option key={category} value={category}>
             {category.toUpperCase()}
           </option>
         ))}
       </select>
-      <button className="btn btn-outline btn-primary join-item">
+      <button className="btn btn-primary join-item">
         <MdSearch className="w-8 h-8" />
       </button>
     </div>

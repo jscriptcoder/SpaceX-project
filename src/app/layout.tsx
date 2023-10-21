@@ -8,7 +8,7 @@ import Footer from '@/components/Footer'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
-  title: 'Star War',
+  title: '..:: Star War ::..',
   description: 'Star War search engine',
 }
 

@@ -6,8 +6,7 @@ import useHomePage from './useHomePage'
 import Search from './Search'
 
 export default function HomePage() {
-  const { loading, category, resultValues, setSearch, setCategory } =
-    useHomePage()
+  const { loading, resultValues, setSearch, setCategory } = useHomePage()
 
   return (
     <Page>

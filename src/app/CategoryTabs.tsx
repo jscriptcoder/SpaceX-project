@@ -1,5 +1,7 @@
-import { SearchCategory, SearchResultValue } from '@/constants/types'
+import { SearchCategory, categories } from '@/constants/category'
+import { SearchResultValue } from '@/constants/types'
 import { useMemo, useState } from 'react'
+import LoadingTabs from './LoadingTabs'
 
 type TabsProps = {
   loading: boolean
@@ -7,20 +9,19 @@ type TabsProps = {
 }
 
 export default function CategoryTabs({ loading, resultValues }: TabsProps) {
-  const [tab, setTab] = useState(SearchCategory.ALL)
+  const [tab, setTab] = useState<SearchCategory | undefined>()
   const totalItems = useMemo(
     () => resultValues.reduce((acc, val) => acc + (val?.data?.count || 0), 0),
     [resultValues]
   )
 
+  if (loading) return <LoadingTabs tabs={categories.length} />
+
   return (
     <div className="tabs">
-      {Object.values(SearchCategory).map((category) => {
-        const count =
-          category === SearchCategory.ALL
-            ? totalItems
-            : resultValues.find((val) => val.category === category)?.data
-                ?.count || 0
+      {resultValues.map((result) => {
+        const category = result.category
+        const count = result.data?.count || 0
         return (
           <div key={category} className="indicator">
             <span className="indicator-item badge badge-primary text-[10px]">
