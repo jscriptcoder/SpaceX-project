@@ -2,6 +2,7 @@ import { SearchResponse } from '@/constants/types'
 import { ReactNode, useCallback, useState } from 'react'
 import EntitiesPaginator from './EntitiesPaginator'
 import LoadingMask from '../LoadingMask'
+import useEntityTable from './useEntityTable'
 
 type EntityTableProps = {
   children: ReactNode
@@ -9,33 +10,7 @@ type EntityTableProps = {
 }
 
 export default function EntityTable({ data, children }: EntityTableProps) {
-  const [loading, setLoading] = useState(false)
-
-  const onPrevious = useCallback(() => {
-    if (!data?.previous) return
-
-    setLoading(true)
-
-    fetch(data.previous)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res)
-      })
-      .finally(() => setLoading(false))
-  }, [data?.previous])
-
-  const onNext = useCallback(() => {
-    if (!data?.next) return
-
-    setLoading(true)
-
-    fetch(data.next)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res)
-      })
-      .finally(() => setLoading(false))
-  }, [data?.next])
+  const { loading, onPrevious, onNext } = useEntityTable(data)
 
   return (
     <div className="min-h-[300px] flex flex-col justify-between space-y-4">
