@@ -4,7 +4,7 @@ import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 import { WagmiConfig } from 'wagmi'
 import { useEffect, useState } from 'react'
 import { supportedChains } from '@/chains'
-import HangOn from './HangOn'
+import Loading from './Loading'
 
 export type WagmiProps = {
   children: React.ReactNode
@@ -38,7 +38,7 @@ export default function Wagmi({ children }: WagmiProps) {
   // This prevents the children from rendering server-side and causing a mismatch
   return (
     <WagmiConfig config={wagmiConfig}>
-      {!mounted && <HangOn />}
+      {!mounted && <Loading />}
       {mounted && children}
     </WagmiConfig>
   )
