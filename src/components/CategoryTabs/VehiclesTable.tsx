@@ -3,20 +3,14 @@ import { SearchResultValue, Vehicle } from '@/constants/types'
 export default function VehiclesTable({
   result,
 }: {
-  result: SearchResultValue<Vehicle>
+  result?: SearchResultValue<Vehicle>
 }) {
-  if (!result) {
-    return <div>No results found</div>
-  }
+  if (!result) return null
 
-  const { data, error } = result
-
-  if (error) {
-    return <div>{error}</div>
-  }
+  const { data } = result
 
   return (
-    <div className="overflow-x-auto h-[300px]">
+    <div className="min-h-[300px] flex flex-col justify-between">
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>

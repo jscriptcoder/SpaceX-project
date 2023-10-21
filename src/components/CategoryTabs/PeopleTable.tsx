@@ -1,22 +1,17 @@
 import { People, SearchResultValue } from '@/constants/types'
+import EntityTable from './EntityTable'
 
 export default function PeopleTable({
   result,
 }: {
   result?: SearchResultValue<People>
 }) {
-  if (!result) {
-    return <div>No results found</div>
-  }
+  if (!result) return null
 
-  const { data, error } = result
-
-  if (error) {
-    return <div>{error}</div>
-  }
+  const { data } = result
 
   return (
-    <div className="overflow-x-auto h-[300px]">
+    <EntityTable data={data}>
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -45,6 +40,6 @@ export default function PeopleTable({
           ))}
         </tbody>
       </table>
-    </div>
+    </EntityTable>
   )
 }

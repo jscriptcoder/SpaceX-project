@@ -5,18 +5,12 @@ export default function PlanetsTable({
 }: {
   result?: SearchResultValue<Planet>
 }) {
-  if (!result) {
-    return <div>No results found</div>
-  }
+  if (!result) return null
 
-  const { data, error } = result
-
-  if (error) {
-    return <div>{error}</div>
-  }
+  const { data } = result
 
   return (
-    <div className="min-h-[300px]">
+    <div className="min-h-[300px] flex flex-col justify-between">
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -45,14 +39,6 @@ export default function PlanetsTable({
           ))}
         </tbody>
       </table>
-      {/* <div className="join grid grid-cols-2">
-        <button className="join-item btn btn-secondary btn-outline btn-sm">
-          Previous
-        </button>
-        <button className="join-item btn btn-secondary btn-outline btn-sm">
-          Next
-        </button>
-      </div> */}
     </div>
   )
 }

@@ -1,10 +1,9 @@
 'use client'
 
 import Page from '@/components/Page'
-import CategoryTabs from './CategoryTabs'
 import useHomePage from './useHomePage'
 import Search from './Search'
-import CategoryPanels from './CategoryPanels'
+import { CategoryTabs, CategoryPanels } from '@/components/CategoryTabs'
 
 export default function HomePage() {
   const { tab, loading, resultValues, setTab, onSearch } = useHomePage()

@@ -12,6 +12,7 @@ import PlanetsTable from './PlanetsTable'
 import SpeciesTable from './SpeciesTable'
 import StarshipsTable from './StarshipsTable'
 import VehiclesTable from './VehiclesTable'
+import LoadingTable from './LoadingTable'
 
 type CategoryPanelsProps = {
   tab: SearchCategory
@@ -22,17 +23,9 @@ type CategoryPanelsProps = {
 export default function CategoryPanels({
   tab,
   loading,
-  results,
+  results = [],
 }: CategoryPanelsProps) {
-  if (loading) {
-    // TODO
-    return <div>Loading...</div>
-  }
-
-  if (results.length === 0) {
-    // TODO
-    return <div>No results found</div>
-  }
+  if (loading) return <LoadingTable rows={11} />
 
   switch (tab) {
     case SearchCategory.PEOPLE:

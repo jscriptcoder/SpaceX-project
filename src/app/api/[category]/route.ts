@@ -1,6 +1,5 @@
 import { SearchCategory } from '@/constants/category'
 import { swapApiURL } from '@/constants/config'
-import { Entity, SearchResponse, SearchResultValue } from '@/constants/types'
 import { processResponse, replacePagination } from '@/utils/response'
 import { NextResponse } from 'next/server'
 
