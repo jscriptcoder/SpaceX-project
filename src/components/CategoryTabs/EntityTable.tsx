@@ -23,7 +23,7 @@ export default function EntityTable<T extends Entity>({
         {loading && <LoadingMask />}
         {children}
       </div>
-      {data?.count && data.count > 10 && (
+      {data && data.count > 10 && (
         <EntityPaginator
           data={data}
           loading={loading}
