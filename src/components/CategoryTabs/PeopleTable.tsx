@@ -1,17 +1,21 @@
-import { People, SearchResultValue } from '@/constants/types'
+import { Character, SearchResponse } from '@/constants/types'
 import EntityTable from './EntityTable'
+import { useEffect, useState } from 'react'
 
 export default function PeopleTable({
-  result,
+  data,
 }: {
-  result?: SearchResultValue<People>
+  data?: SearchResponse<Character>
 }) {
-  if (!result) return null
-
-  const { data } = result
+  const [searchResponse, setSearchResponse] = useState<
+    SearchResponse<Character> | undefined
+  >(data)
 
   return (
-    <EntityTable data={data}>
+    <EntityTable
+      data={searchResponse}
+      onPage={(res?: SearchResponse<Character>) => setSearchResponse(res)}
+    >
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -26,7 +30,7 @@ export default function PeopleTable({
           </tr>
         </thead>
         <tbody>
-          {data?.results.map((person) => (
+          {searchResponse?.results.map((person) => (
             <tr key={person.url} className="capitalize">
               <td>{person.name}</td>
               <td align="center">{person.gender}</td>

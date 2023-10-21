@@ -1,6 +1,6 @@
 import { SearchCategory } from '@/constants/category'
 import {
-  People,
+  Character,
   Planet,
   SearchResultValue,
   Species,
@@ -31,28 +31,28 @@ export default function CategoryPanels({
     case SearchCategory.PEOPLE:
       const people = results.find(
         (value) => value.category === SearchCategory.PEOPLE
-      ) as SearchResultValue<People>
-      return <PeopleTable result={people} />
+      ) as SearchResultValue<Character>
+      return <PeopleTable data={people?.data} />
     case SearchCategory.PLANETS:
       const planets = results.find(
         (value) => value.category === SearchCategory.PLANETS
       ) as SearchResultValue<Planet>
-      return <PlanetsTable result={planets} />
+      return <PlanetsTable data={planets?.data} />
     case SearchCategory.SPECIES:
       const species = results.find(
         (value) => value.category === SearchCategory.SPECIES
       ) as SearchResultValue<Species>
-      return <SpeciesTable result={species} />
+      return <SpeciesTable data={species?.data} />
     case SearchCategory.STARSHIPTS:
       const ships = results.find(
         (value) => value.category === SearchCategory.STARSHIPTS
       ) as SearchResultValue<Starship>
-      return <StarshipsTable result={ships} />
+      return <StarshipsTable data={ships?.data} />
     case SearchCategory.VEHICLES:
       const vehicles = results.find(
         (value) => value.category === SearchCategory.VEHICLES
       ) as SearchResultValue<Vehicle>
-      return <VehiclesTable result={vehicles} />
+      return <VehiclesTable data={vehicles?.data} />
     default:
     // TODO: handle this case
   }

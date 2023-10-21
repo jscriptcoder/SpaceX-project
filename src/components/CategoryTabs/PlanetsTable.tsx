@@ -1,18 +1,21 @@
-import { Planet, SearchResultValue } from '@/constants/types'
+import { Planet, SearchResponse } from '@/constants/types'
 import EntityTable from './EntityTable'
 import { useEffect, useState } from 'react'
 
 export default function PlanetsTable({
-  result,
+  data,
 }: {
-  result?: SearchResultValue<Planet>
+  data?: SearchResponse<Planet>
 }) {
-  if (!result) return null
-
-  const { data } = result
+  const [searchResponse, setSearchResponse] = useState<
+    SearchResponse<Planet> | undefined
+  >(data)
 
   return (
-    <EntityTable data={data}>
+    <EntityTable
+      data={searchResponse}
+      onPage={(res?: SearchResponse<Planet>) => setSearchResponse(res)}
+    >
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -27,7 +30,7 @@ export default function PlanetsTable({
           </tr>
         </thead>
         <tbody>
-          {data?.results.map((planet) => (
+          {searchResponse?.results.map((planet) => (
             <tr key={planet.url} className="capitalize">
               <td>{planet.name}</td>
               <td>{planet.terrain}</td>

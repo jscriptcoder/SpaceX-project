@@ -1,17 +1,21 @@
-import { SearchResultValue, Species } from '@/constants/types'
+import { SearchResponse, Species } from '@/constants/types'
 import EntityTable from './EntityTable'
+import { useState } from 'react'
 
 export default function SpeciesTable({
-  result,
+  data,
 }: {
-  result?: SearchResultValue<Species>
+  data?: SearchResponse<Species>
 }) {
-  if (!result) return null
-
-  const { data } = result
+  const [searchResponse, setSearchResponse] = useState<
+    SearchResponse<Species> | undefined
+  >(data)
 
   return (
-    <EntityTable data={data}>
+    <EntityTable
+      data={searchResponse}
+      onPage={(res?: SearchResponse<Species>) => setSearchResponse(res)}
+    >
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -27,17 +31,17 @@ export default function SpeciesTable({
           </tr>
         </thead>
         <tbody>
-          {data?.results.map((species) => (
-            <tr key={species.url} className="capitalize">
-              <td>{species.name}</td>
-              <td>{species.language}</td>
-              <td align="center">{species.designation}</td>
-              <td align="center">{species.classification}</td>
-              <td>{species.eye_colors}</td>
-              <td>{species.hair_colors}</td>
-              <td>{species.skin_colors}</td>
-              <td align="center">{species.average_height}</td>
-              <td align="center">{species.average_lifespan}</td>
+          {searchResponse?.results.map((specie) => (
+            <tr key={specie.url} className="capitalize">
+              <td>{specie.name}</td>
+              <td>{specie.language}</td>
+              <td align="center">{specie.designation}</td>
+              <td align="center">{specie.classification}</td>
+              <td>{specie.eye_colors}</td>
+              <td>{specie.hair_colors}</td>
+              <td>{specie.skin_colors}</td>
+              <td align="center">{specie.average_height}</td>
+              <td align="center">{specie.average_lifespan}</td>
             </tr>
           ))}
         </tbody>

@@ -31,7 +31,7 @@ export interface Entity extends Datable {
   url: string
 }
 
-export interface People extends Entity {
+export interface Character extends Entity {
   birth_year: string
   eye_color: string
   gender: 'Male' | 'Female' | 'unknown' | 'n/a'

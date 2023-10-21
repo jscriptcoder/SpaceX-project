@@ -1,17 +1,21 @@
-import { SearchResultValue, Vehicle } from '@/constants/types'
+import { SearchResponse, Vehicle } from '@/constants/types'
 import EntityTable from './EntityTable'
+import { useState } from 'react'
 
 export default function VehiclesTable({
-  result,
+  data,
 }: {
-  result?: SearchResultValue<Vehicle>
+  data?: SearchResponse<Vehicle>
 }) {
-  if (!result) return null
-
-  const { data } = result
+  const [searchResponse, setSearchResponse] = useState<
+    SearchResponse<Vehicle> | undefined
+  >(data)
 
   return (
-    <EntityTable data={data}>
+    <EntityTable
+      data={searchResponse}
+      onPage={(res?: SearchResponse<Vehicle>) => setSearchResponse(res)}
+    >
       <table className="table table-xs table-pin-rows">
         <thead>
           <tr>
@@ -27,7 +31,7 @@ export default function VehiclesTable({
           </tr>
         </thead>
         <tbody>
-          {data?.results.map((vehicle) => (
+          {searchResponse?.results.map((vehicle) => (
             <tr key={vehicle.url} className="capitalize">
               <td>{vehicle.name}</td>
               <td>{vehicle.model}</td>

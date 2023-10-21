@@ -7,7 +7,7 @@ type EntityTableProps = {
   onNext?: () => void
 }
 
-export default function EntitiesPaginator({
+export default function EntityPaginator({
   data,
   loading,
   onPrevious,
