@@ -15,8 +15,8 @@ const projectId =
   '646ee2464d620624dc7c2dd7ed0fe518'
 
 const metadata = {
-  name: 'StarWar',
-  description: 'Star War search engine',
+  name: 'StarWars',
+  description: 'Star Wars search engine',
   url: 'https://space-x-project-seven.vercel.app',
   icons: ['https://space-x-project-seven.vercel.app/starwar-logo.svg'],
 }

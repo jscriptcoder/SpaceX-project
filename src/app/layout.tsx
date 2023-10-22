@@ -8,8 +8,8 @@ import Footer from '@/components/Footer'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
-  title: '..:: Star War ::..',
-  description: 'Star War search engine',
+  title: '..:: Star Wars ::..',
+  description: 'Star Wars search engine',
 }
 
 export default function RootLayout({
