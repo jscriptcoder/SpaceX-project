@@ -1,5 +1,7 @@
 # SpaceX project
-TODO
+This project consist of two pages:
+1. Home, where you can search and navigate through different Star War entienes: People, Planets, Starships, Species and Vehicles. It allows you to search by name and filter by category (or entity). Makes use of the public API: [Swapi](https://swapi.dev/)
+2. Deposits, where you can watch latest deposits happening in the [Ethereum staking contract](https://etherscan.io/address/0x00000000219ab540356cBB839Cbe05303d7705Fa). The use must have their wallet connected to the Ethereum mainnet network.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
