@@ -1,3 +1,8 @@
+/**
+ * Truncate a string to a certain length.
+ * Example:
+ *    truncateString('Hello world!', 5) => 'Hello…'
+ */
 export function truncateString(
   str: string,
   maxlength: number,
