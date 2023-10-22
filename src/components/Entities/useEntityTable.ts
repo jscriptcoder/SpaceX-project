@@ -1,4 +1,5 @@
 import { Entity, SearchResponse, SearchResultValue } from '@/constants/types'
+import fetchEntities from '@/utils/fetchEntities'
 import { useCallback, useState } from 'react'
 
 export default function useEntityTable<T extends Entity>(
@@ -13,8 +14,7 @@ export default function useEntityTable<T extends Entity>(
     setLoading(true)
 
     try {
-      const response = await fetch(data.previous)
-      const result: SearchResultValue<T> = await response.json()
+      const result = await fetchEntities<T>(data.previous)
 
       console.log('Previous page result:', result)
 
@@ -33,8 +33,7 @@ export default function useEntityTable<T extends Entity>(
     setLoading(true)
 
     try {
-      const response = await fetch(data.next)
-      const result: SearchResultValue<T> = await response.json()
+      const result = await fetchEntities<T>(data.next)
 
       console.log('Next page result:', result)
 

@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex flex-col justify-between h-full bg-[url('/starwar-bg.jpeg')] bg-cover">
+        <div className="layout-wrapper">
           <Wagmi>
             <Header />
             <main className="flex-1 p-4">
