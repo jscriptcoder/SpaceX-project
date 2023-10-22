@@ -3,10 +3,11 @@ import { MdSearch } from 'react-icons/md'
 import useSearch, { OnSearch } from './useSearch'
 
 type SearchProps = {
+  loading: boolean
   onSearch: OnSearch
 }
 
-export default function Search({ onSearch }: SearchProps) {
+export default function Search({ loading, onSearch }: SearchProps) {
   const {
     term,
     category,
@@ -22,7 +23,7 @@ export default function Search({ onSearch }: SearchProps) {
         <input
           value={term}
           className="input join-item w-[300px]"
-          placeholder="Search term…"
+          placeholder="Search by name…"
           onInput={onInputChange}
         />
         <select
@@ -36,11 +37,19 @@ export default function Search({ onSearch }: SearchProps) {
             </option>
           ))}
         </select>
-        <button className="btn btn-primary join-item" onClick={clickSearch}>
+        <button
+          disabled={loading}
+          className="btn btn-primary join-item"
+          onClick={clickSearch}
+        >
           <MdSearch className="w-8 h-8" />
         </button>
       </div>
-      <button className="btn btn-secondary btn-outline" onClick={clickReset}>
+      <button
+        disabled={loading}
+        className="btn btn-secondary btn-outline"
+        onClick={clickReset}
+      >
         Reset
       </button>
     </div>

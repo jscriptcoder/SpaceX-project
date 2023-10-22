@@ -17,6 +17,7 @@ export default function useHomePage() {
   useEffect(() => {
     setLoading(true)
 
+    // TODO: add caching system here
     fetch(`/api/search?term=${search}&category=${category}`)
       .then((response) => response.json() as Promise<SearchResultValue[]>)
       .then((data) => {

@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <Page>
       <div className="glass-box p-4 space-y-8">
-        <Search onSearch={onSearch} />
+        <Search onSearch={onSearch} loading={loading} />
         <div className="space-y-4">
           <EntityTabs
             tab={tab}
