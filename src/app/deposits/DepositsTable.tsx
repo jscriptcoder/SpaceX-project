@@ -35,10 +35,14 @@ export default function DepositsTable({ logs, loading }: DepositsTableProps) {
             const blockNumber = log.blockNumber.toString()
             const blockUrl = `${explorerUrl}/block/${blockNumber}`
 
-            // TODO: explain this
+            // Amount comes formatted as a little endian hex string.
+            // We need to convert it to decimal to make it human readable.
             const amountInGwei = log?.args?.amount
               ? hexLittleEndianToDecimal(log.args.amount)
               : BigInt(0)
+
+            // Before transforming to little endian 64-bit hex string, the amount is
+            // converted to Gwei. We want to show the amount in ETH.
             const amount = `${amountInGwei / BigInt(10 ** 9)} ETH` // 1 ETH = 10^9 Gwei
 
             return (

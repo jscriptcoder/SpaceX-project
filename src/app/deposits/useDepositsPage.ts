@@ -16,6 +16,8 @@ export default function useDepositsPage() {
   const [loading, setLoading] = useState(false)
   const { chain } = useNetwork()
 
+  // Works out which logs to display based on the current page and page size
+  // TODO: we might want to extract this logic into an unit-test it
   const logsToDisplay = useMemo(() => {
     const start = (page - 1) * defaultPageSize
     const end = start + defaultPageSize
@@ -27,7 +29,9 @@ export default function useDepositsPage() {
 
     setLoading(true)
 
-    // Let's get the latest logs for the event DepositEvent
+    // Let's get the latest logs for the event DepositEvent.
+    // First we need to create a filter to listen for new events
+    // that can be used with getFilterChanges
     websocketClient
       .createEventFilter({
         address: depositContractAddress,
@@ -37,6 +41,7 @@ export default function useDepositsPage() {
       .then((filter) => websocketClient.getFilterLogs({ filter }))
       .then((prevLogs) => {
         // Sort the logs by block number and logIndex in descending order
+        // TODO: this could be an utility function and unit-test it
         const sorted = prevLogs.sort((log1, log2) => {
           // We sort by block number first
           if (log1.blockNumber !== log2.blockNumber) {

@@ -1,6 +1,5 @@
 import { useWeb3Modal, useWeb3ModalState } from '@web3modal/wagmi/react'
-import { useCallback } from 'react'
-import { useAccount, useDisconnect } from 'wagmi'
+import { useAccount } from 'wagmi'
 
 export default function useConnectButton() {
   const { open: openModal } = useWeb3Modal()

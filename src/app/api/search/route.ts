@@ -1,11 +1,17 @@
 import { SearchCategory, categories } from '@/constants/category'
 import { swapApiURL } from '@/constants/config'
-import { Entity, SearchResponse, SearchResultValue } from '@/constants/types'
 import { processResponse, replacePagination } from '@/utils/response'
 import { NextResponse } from 'next/server'
 
+/**
+ * This endpoint helps us search for entities in all or specific categories
+ * Examples:
+ *    /api/search?term=luke&category=people => returns results for people with name containing "luke"
+ *    /api/search?term=le&category=all => returns results for all categories with name containing "le"
+ */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
+
   const term = searchParams.get('term')
   const category =
     (searchParams.get('category') as SearchCategory) || SearchCategory.ALL
@@ -40,10 +46,10 @@ export async function GET(request: Request) {
 
   const resultValues = await Promise.all(resultValuePromises)
 
-  // Replace pagination with our route, which will proxy to swapi.dev
   resultValues.forEach(replacePagination)
 
-  // Sort the categories by count in descending order
+  // Sort the categories by count in descending order.
+  // We want to show the most popular categories first.
   const responseBody = resultValues.sort((r1, r2) =>
     Number(r1.data?.count) < Number(r2.data?.count) ? 1 : -1
   )

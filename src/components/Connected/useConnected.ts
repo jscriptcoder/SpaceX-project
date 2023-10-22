@@ -7,8 +7,7 @@ export default function useConnected() {
   const { chain } = useNetwork()
   const { open: openModal } = useWeb3Modal()
   const { open: isOpen } = useWeb3ModalState()
-  const { chains, error, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork()
+  const { isLoading, pendingChainId, switchNetwork } = useSwitchNetwork()
 
   const isSwitching = useMemo(
     () => isLoading && mainnet.id === pendingChainId,

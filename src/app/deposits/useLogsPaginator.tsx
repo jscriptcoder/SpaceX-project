@@ -7,6 +7,11 @@ type UseLogsPaginatorArgs = {
   buttonsToShow: number
 }
 
+/**
+ * This hook will gives us all the information we need to build a paginator UI
+ * that shows first, previous, a fixed amount (buttonsToShow) of buttons to directly
+ * navigate to a page, next and last buttons.
+ */
 export default function useLogsPaginator({
   page,
   pageSize,
@@ -17,6 +22,9 @@ export default function useLogsPaginator({
     () => Math.ceil(totalItems / pageSize),
     [totalItems, pageSize]
   )
+
+  // TODO: I noticed an issue when getting close to the last page.
+  //       Tha amount of buttonsToShow is not respected. Look into it.
   const buttons = useMemo(
     () => Math.min(buttonsToShow, totalPages),
     [buttonsToShow, totalPages]

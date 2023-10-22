@@ -1,4 +1,3 @@
-import { useCallback, useMemo, useState } from 'react'
 import useLogsPaginator from './useLogsPaginator'
 
 type LogsPaginatorProps = {

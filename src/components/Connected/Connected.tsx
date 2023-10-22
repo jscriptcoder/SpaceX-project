@@ -4,6 +4,10 @@ import { mainnet } from 'wagmi'
 import { MdErrorOutline } from 'react-icons/md'
 import useConnected from './useConnected'
 
+/**
+ * This component will prevent the user from accessing a page if they are not connected
+ * or connected to the wrong network.
+ */
 export default function Connected({ children }: { children: React.ReactNode }) {
   const { chain, isOpen, isConnected, isSwitching, openModal, switchNetwork } =
     useConnected()
@@ -32,6 +36,9 @@ export default function Connected({ children }: { children: React.ReactNode }) {
     )
   }
 
+  // TODO: think about extracting these two block into its own component
+  //       They are very similar.
+
   if (!chain || chain.id !== mainnet.id) {
     return (
       <div role="alert" className="alert alert-warning mx-auto w-[50%]">
@@ -41,6 +48,10 @@ export default function Connected({ children }: { children: React.ReactNode }) {
             <h3 className="font-bold text-xl">Wrong Network</h3>
             <div className="text-lg">
               <span>Please,</span>{' '}
+              {/*
+                TODO: do we want to handle when the user rejects to switch network?
+                      How about showing a toast message?
+              */}
               <button
                 disabled={isSwitching}
                 className="link link-secondary"

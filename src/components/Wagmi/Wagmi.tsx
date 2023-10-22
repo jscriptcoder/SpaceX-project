@@ -13,10 +13,10 @@ export type WagmiProps = {
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string
 
 const metadata = {
-  name: 'SpaceX',
-  description: 'Cool project',
+  name: 'StarWar',
+  description: 'Star War search engine',
   url: 'https://space-x-project-seven.vercel.app',
-  icons: ['https://space-x-project-seven.vercel.app/logo.png'],
+  icons: ['https://space-x-project-seven.vercel.app/starwar-logo.svg'],
 }
 
 const chains = supportedChains
@@ -26,7 +26,6 @@ const wagmiConfig = defaultWagmiConfig({
   metadata,
 })
 
-// 3. Create modal
 createWeb3Modal({ wagmiConfig, projectId, chains })
 
 export default function Wagmi({ children }: WagmiProps) {
@@ -35,7 +34,7 @@ export default function Wagmi({ children }: WagmiProps) {
   useEffect(() => setMounted(true), [])
 
   // We want to render de the children only when this component is mounted.
-  // This prevents the children from rendering server-side and causing a mismatch
+  // This prevents the children from rendering server-side and causing a mismatch.
   return (
     <WagmiConfig config={wagmiConfig}>
       {!mounted && <Loading />}

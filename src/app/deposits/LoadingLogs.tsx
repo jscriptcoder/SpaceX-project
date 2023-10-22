@@ -1,3 +1,6 @@
+/**
+ * Loading skeleton for the logs table
+ */
 const LoadingLogs = ({ rows }: { rows: number }) => (
   <tbody className="animate-pulse">
     {Array.from({ length: rows }).map((_, i) => (
