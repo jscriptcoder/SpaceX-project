@@ -27,7 +27,17 @@ export default function useSearch(onSearch: OnSearch) {
     onSearch(term, category)
   }, [term, category, onSearch])
 
+  const clickReset = useCallback(() => {
+    setTerm('')
+    setCategory(searchCategories[0])
+
+    onSearch('', searchCategories[0])
+  }, [onSearch])
+
   return {
+    term,
+    category,
+    clickReset,
     clickSearch,
     onInputChange,
     onSelectChange,
