@@ -10,7 +10,9 @@ export type WagmiProps = {
   children: React.ReactNode
 }
 
-const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string
+const projectId =
+  (process.env.NEXT_PUBLIC_WC_PROJECT_ID as string) ||
+  '646ee2464d620624dc7c2dd7ed0fe518'
 
 const metadata = {
   name: 'StarWar',
