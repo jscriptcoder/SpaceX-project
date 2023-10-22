@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 
 export default function Breadcrumbs() {
   const path = usePathname()
+
   return (
     <div className="text-sm breadcrumbs">
       <ul>
