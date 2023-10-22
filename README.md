@@ -12,7 +12,9 @@ First, install all the dependencies:
 $ npm install
 ```
 
-Second, run the development server:
+Next, you have to rename **.env.example** to **.env.loca** and populate the env vars with values.
+
+Lastly, run the development server:
 ```bash
 $ npm run dev
 ```
