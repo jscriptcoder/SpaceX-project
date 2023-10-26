@@ -1,5 +1,6 @@
-# SpaceX project
-This project consist of two pages:
+# SpaceX project - Home Assignment Test
+
+Start Wars search and Ethereum staking deposits. This project consist of two pages:
 1. **Home**, where you can search and navigate through different Star Wars entienes: People, Planets, Starships, Species and Vehicles. It allows you to search by name and filter by category (or entity). Makes use of the public API [Swapi](https://swapi.dev/).
 2. **Deposits**, where you can watch the latest deposits happening in the [Ethereum staking contract](https://etherscan.io/address/0x00000000219ab540356cBB839Cbe05303d7705Fa). The user must have their wallet connected to the Ethereum mainnet network to be able to view this page.
 
